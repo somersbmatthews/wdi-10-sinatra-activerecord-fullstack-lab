@@ -1,1 +1,1 @@
-INSERT INTO users (username, password) VALUES ('Somers', '12345');
+INSERT INTO users (username, password) VALUES ('somers', '12345');

@@ -2,14 +2,38 @@
 <html>
 <head>
 	<title><%= @page %></title>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css"">
 </head>
 <body>
+
+	<nav>
+		<div>
+			<p>Nav:</p>
+			<a href="/items">Item list</a> •
+			<a href="/items/add">Add Items</a>
+		</div>
+		<div>
+			<% if !session[:logged_in] %>
+				<a href="/user/login">Login</a>
+			<% else %>
+				<p>Logged in as <%= session[:username] %></p>
+				<a href="/user/logout">Logout</a>
+			<% end %>
+		</div>
+	</nav>
+	<% if session[:message] %>
+	<p class="msg">
+	<%= session[:message] %>
+	</p>
+	<% session[:message] = nil
+end %>
+
 	<h1>THIS IS THE LAYOUT TEMPLATE</h1>
+	<%= yield %>
 
 	<iframe src="https://giphy.com/embed/3owzVQyBr5LE8098Qg" width="480" height="200" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/starwars-star-wars-rogue-one-3owzVQyBr5LE8098Qg">via GIPHY</a></p>
 
-	<h2 style="border: 1px solid brown; border-radius: 5px">This h2 is in the hello.erb<h2>
+	
 	
 </body>
 </html>
