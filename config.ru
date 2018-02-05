@@ -10,3 +10,5 @@ map('/') {
 map('/items') { 
 	run ItemController
 }
+
+require './models/ItemModel'

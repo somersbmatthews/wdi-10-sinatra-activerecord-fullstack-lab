@@ -17,4 +17,11 @@ class ItemController < ApplicationController
 
 	end
 
+	# CREATE route
+	post '/add' do
+	
+		pp params
+		"you posted. check your terminal."
+	end
+
 end
