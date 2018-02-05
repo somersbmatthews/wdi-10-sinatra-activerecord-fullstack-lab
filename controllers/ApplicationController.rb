@@ -6,7 +6,12 @@ class ApplicationController < Sinatra::Base
 		set :views, File.expand_path('../views', File.dirname(__FILE__))
 
 		get '/' do
-			"The server is armed and operational."
+			erb :hello
 		end
+
+		get '/*' do
+			erb :not_found
+		end
+
 
 end
