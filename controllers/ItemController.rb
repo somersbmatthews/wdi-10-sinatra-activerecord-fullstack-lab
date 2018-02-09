@@ -10,11 +10,28 @@ class ItemController < ApplicationController
 	# INDEX route
 	get '/' do
 		"this is get route in ItemController"
-		@items = Item.all
+		@user = User.find session[:user_id]
+		@items = @user.items.order(:id)
 		@items.to_json
 		erb :item_index
+
+		
 	end
 
+	get '/j' do 
+		@user = User.find session[:user_id]
+		@items = @user.items.order(:id)
+		# @items.to_json
+		resp = {
+			status: {
+				all_good: true,
+				number_of_results: @items.length
+			},
+			items: @items
+		}
+		resp.to_json
+		
+	end
 	# ADD route 
 	get '/add' do
 		
@@ -63,6 +80,53 @@ class ItemController < ApplicationController
 		@item.save
 		redirect '/items'
 	end
+	get '/ajax' do
+		erb :item_index_ajax
+	end
+	post '/j' do 
+		@item = Item.new
+		@item.title = params[:title]
+		@item.user_id = session[:user_id]
+		@item.save
+
+		resp = {
+			status{
+				all_good: true
+			},
+			item: @item
+		}
+		resp.to_json
+	end
 
 	#session[:message] = "You updated item \##{@item.id}"
+	 delete '/j/:id' do
+	 	@item = Item.find params[:id]
+	 	@item.delete
+	 	resp = {
+	 		status: {
+	 			all_good: true
+	 		}
+	 	}
+	 	resp.to_json
+	 end
+
+	 patch '/j/:id' do
+	 	@item = Item.find_by(id: params[:id])
+	 	@item.title = params[:title]
+	 	@item.save
+
+	 	resp = {
+	 		status: {
+	 			all_good: true,
+	 			message: "updated item #{@item.id}"
+	 		},
+	 		item: @item
+
+	 	}
+	 	resp.json
+	 end
+
+	 get '/j/:userid/edit/:itemid' do
+	 	@user = User.find params[:userid]
+	 	@item = @user.items.where(id: params[:itemid])
 end

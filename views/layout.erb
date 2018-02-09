@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title><%= @page %></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"">
 </head>
 <body>
@@ -11,6 +12,7 @@
 			<p>Nav:</p>
 			<a href="/items">Item list</a> •
 			<a href="/items/add">Add Items</a>
+			<a href="/items/ajax">Ajax</a>
 		</div>
 		<div>
 			<% if !session[:logged_in] %>
